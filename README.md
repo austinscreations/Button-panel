@@ -9,6 +9,11 @@ the second version uses one center led for a cenetr lighting in the button - acy
 
 Once I have a chance I plan to produce the pcb and order parts on ebay and create the 3d print assemblies to see what teh cost would be and if it works well.
 
+2021-04-16
+I've ordered PCB's to test. 
+Created 3d photo of pcb assemblies. Next versions will use esp8266 direct vs D1 mini.
+Cost Sheet updated.
+
 2020-12-12
 reformated files
 added new version 2 which makes the pcb compact - allows for 24mm spacing between each button matching the assembly of teh superhouse button panels - it allso allowed for teh buttons to be centered on a wall plate. wall plate is normal cover / size for single gang north america box
