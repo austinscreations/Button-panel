@@ -9,6 +9,9 @@ the second version uses one center led for a cenetr lighting in the button - acy
 
 Once I have a chance I plan to produce the pcb and order parts on ebay and create the 3d print assemblies to see what teh cost would be and if it works well.
 
+2021-04-18
+Updated 3d files to fit around capacitors and ethernet connector. The 3d files and pcb's will be re-layed out to fix these in the next version. allowing for faster 3d printing, vs having holes / cutouts made.
+
 2021-04-16
 I've ordered PCB's to test. 
 Created 3d photo of pcb assemblies. Next versions will use esp8266 direct vs D1 mini.
