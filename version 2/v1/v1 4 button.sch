@@ -11710,25 +11710,29 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </packages>
 <packages3d>
 <package3d name="SODFL3718X125N" urn="urn:adsk.eagle:package:28027690/2" type="model" library_version="40">
-<description>&lt;b&gt;SOD-123FL&lt;/b&gt;&lt;br&gt;</description>
+<description>&lt;b&gt;SOD-123FL&lt;/b&gt;&lt;br&gt;
+</description>
 <packageinstances>
 <packageinstance name="SODFL3718X125N"/>
 </packageinstances>
 </package3d>
 <package3d name="SOT229P700X180-4N" urn="urn:adsk.eagle:package:25470607/2" type="model" library_version="36">
-<description>&lt;b&gt;3 Lead SOT-223 Plastic Package&lt;/b&gt;&lt;br&gt;</description>
+<description>&lt;b&gt;3 Lead SOT-223 Plastic Package&lt;/b&gt;&lt;br&gt;
+</description>
 <packageinstances>
 <packageinstance name="SOT229P700X180-4N"/>
 </packageinstances>
 </package3d>
 <package3d name="CAPAE1030X1050N" urn="urn:adsk.eagle:package:28098287/3" type="model" library_version="40">
-<description>&lt;b&gt;G size&lt;/b&gt;&lt;br&gt;</description>
+<description>&lt;b&gt;G size&lt;/b&gt;&lt;br&gt;
+</description>
 <packageinstances>
 <packageinstance name="CAPAE1030X1050N"/>
 </packageinstances>
 </package3d>
 <package3d name="PTS636SM25FSMTRLFS" urn="urn:adsk.eagle:package:25470609/2" type="model" library_version="40">
-<description>&lt;b&gt;PTS636 SM25F SMTR LFS-2&lt;/b&gt;&lt;br&gt;</description>
+<description>&lt;b&gt;PTS636 SM25F SMTR LFS-2&lt;/b&gt;&lt;br&gt;
+</description>
 <packageinstances>
 <packageinstance name="PTS636SM25FSMTRLFS"/>
 </packageinstances>
@@ -12094,9 +12098,9 @@ Source: &lt;a href="https://ms.componentsearchengine.com/Datasheets/1/PTS636 SM2
 <attribute name="NAME" x="196.596" y="116.459" size="1.778" layer="95" rot="R180"/>
 <attribute name="VALUE" x="196.596" y="121.539" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="C5" gate="G$1" x="152.4" y="119.38" smashed="yes">
-<attribute name="NAME" x="153.416" y="120.015" size="1.778" layer="95"/>
-<attribute name="VALUE" x="153.416" y="115.189" size="1.778" layer="96"/>
+<instance part="C5" gate="G$1" x="152.4" y="121.92" smashed="yes" rot="R270">
+<attribute name="NAME" x="153.035" y="120.904" size="1.778" layer="95" rot="R270"/>
+<attribute name="VALUE" x="148.209" y="120.904" size="1.778" layer="96" rot="R270"/>
 </instance>
 <instance part="IC5" gate="G$1" x="167.64" y="104.14" smashed="yes">
 <attribute name="NAME" x="212.09" y="111.76" size="1.778" layer="95" rot="R180" align="center-left"/>
@@ -12116,8 +12120,8 @@ Source: &lt;a href="https://ms.componentsearchengine.com/Datasheets/1/PTS636 SM2
 <instance part="VDD2" gate="G$1" x="15.24" y="127" smashed="yes">
 <attribute name="VALUE" x="17.78" y="132.08" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="P+1" gate="VCC" x="152.4" y="127" smashed="yes">
-<attribute name="VALUE" x="154.94" y="129.54" size="1.778" layer="96" rot="R180"/>
+<instance part="P+1" gate="VCC" x="152.4" y="134.62" smashed="yes">
+<attribute name="VALUE" x="154.94" y="137.16" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="P+2" gate="VCC" x="165.1" y="106.68" smashed="yes">
 <attribute name="VALUE" x="165.1" y="109.22" size="1.778" layer="96" rot="R180"/>
@@ -12321,10 +12325,10 @@ Source: &lt;a href="https://ms.componentsearchengine.com/Datasheets/1/PTS636 SM2
 <segment>
 <pinref part="C5" gate="G$1" pin="+"/>
 <pinref part="P+1" gate="VCC" pin="VCC"/>
-<wire x1="152.4" y1="119.38" x2="152.4" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="121.92" x2="152.4" y2="132.08" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="2"/>
-<wire x1="152.4" y1="119.38" x2="167.64" y2="121.92" width="0.1524" layer="91"/>
-<junction x="152.4" y="119.38"/>
+<wire x1="152.4" y1="121.92" x2="167.64" y2="121.92" width="0.1524" layer="91"/>
+<junction x="152.4" y="121.92"/>
 <pinref part="C2" gate="G$1" pin="2"/>
 <wire x1="167.64" y1="121.92" x2="177.8" y2="121.92" width="0.1524" layer="91"/>
 <junction x="167.64" y="121.92"/>
@@ -12413,21 +12417,13 @@ Source: &lt;a href="https://ms.componentsearchengine.com/Datasheets/1/PTS636 SM2
 </net>
 <net name="GND" class="0">
 <segment>
-<pinref part="C7" gate="G$1" pin="2"/>
-<pinref part="C6" gate="G$1" pin="2"/>
 <pinref part="IC5" gate="G$1" pin="GROUND/ADJUST"/>
-<wire x1="152.4" y1="106.68" x2="160.02" y2="106.68" width="0.1524" layer="91"/>
-<wire x1="167.64" y1="104.14" x2="167.64" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="167.64" y1="104.14" x2="167.64" y2="109.22" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>
-<pinref part="C5" gate="G$1" pin="-"/>
-<wire x1="167.64" y1="114.3" x2="165.1" y2="119.38" width="0.1524" layer="91"/>
 <junction x="167.64" y="114.3"/>
-<wire x1="152.4" y1="106.68" x2="165.1" y2="119.38" width="0.1524" layer="91"/>
-<junction x="152.4" y="106.68"/>
-<junction x="165.1" y="119.38"/>
 <pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="167.64" y1="109.22" x2="167.64" y2="114.3" width="0.1524" layer="91"/>
 <wire x1="167.64" y1="114.3" x2="177.8" y2="114.3" width="0.1524" layer="91"/>
-<junction x="167.64" y="114.3"/>
 <pinref part="C3" gate="G$1" pin="1"/>
 <wire x1="177.8" y1="114.3" x2="187.96" y2="114.3" width="0.1524" layer="91"/>
 <junction x="177.8" y="114.3"/>
@@ -12436,6 +12432,15 @@ Source: &lt;a href="https://ms.componentsearchengine.com/Datasheets/1/PTS636 SM2
 <pinref part="GND3" gate="1" pin="GND"/>
 <junction x="187.96" y="114.3"/>
 <wire x1="187.96" y1="114.3" x2="198.12" y2="114.3" width="0.1524" layer="91"/>
+<pinref part="C5" gate="G$1" pin="-"/>
+<pinref part="C6" gate="G$1" pin="2"/>
+<pinref part="C7" gate="G$1" pin="2"/>
+<wire x1="152.4" y1="106.68" x2="160.02" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="152.4" y1="106.68" x2="152.4" y2="109.22" width="0.1524" layer="91"/>
+<junction x="152.4" y="106.68"/>
+<wire x1="152.4" y1="109.22" x2="167.64" y2="109.22" width="0.1524" layer="91"/>
+<junction x="152.4" y="109.22"/>
+<junction x="167.64" y="109.22"/>
 </segment>
 <segment>
 <pinref part="U$1" gate="G$1" pin="GND"/>
@@ -12808,6 +12813,11 @@ Source: &lt;a href="https://ms.componentsearchengine.com/Datasheets/1/PTS636 SM2
 <pinref part="U$1" gate="G$1" pin="D5"/>
 <wire x1="71.12" y1="114.3" x2="68.58" y2="114.3" width="0.1524" layer="91"/>
 <label x="68.58" y="114.3" size="1.27" layer="95" rot="R180" xref="yes"/>
+</segment>
+</net>
+<net name="N$19" class="0">
+<segment>
+<junction x="167.64" y="109.22"/>
 </segment>
 </net>
 </nets>
