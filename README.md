@@ -10,7 +10,7 @@ the second version uses one center led for a cenetr lighting in the button - acy
 Once I have a chance I plan to produce the pcb and order parts on ebay and create the 3d print assemblies to see what teh cost would be and if it works well.
 
 2021-04-22
-PCB's arrived which means I'll be doing a livestream of tehir assembly and testing https://youtu.be/Dpo3wsEXy4c
+PCB's arrived which means I'll be doing a livestream of their assembly and testing https://youtu.be/Dpo3wsEXy4c
 
 2021-04-18
 Updated 3d files to fit around capacitors and ethernet connector. The 3d files and pcb's will be re-layed out to fix these in the next version. allowing for faster 3d printing, vs having holes / cutouts made.
