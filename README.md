@@ -9,6 +9,9 @@ the second version uses one center led for a cenetr lighting in the button - acy
 
 Once I have a chance I plan to produce the pcb and order parts on ebay and create the 3d print assemblies to see what teh cost would be and if it works well.
 
+2021-04-23 
+added code that will be used during livestream. haven't got tasmota to control the lights correctly yet; thus will be using custom code
+
 2021-04-22
 PCB's arrived which means I'll be doing a livestream of their assembly and testing https://youtu.be/Dpo3wsEXy4c
 
