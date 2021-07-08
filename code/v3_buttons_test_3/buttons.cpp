@@ -68,7 +68,7 @@ void mdPushButton::process()
 //    {
       // Only interested in buttons with events to report
       if (state != BUTTON_NO_STATE) {
-        Serial.println(state);                                           <<<<<<<<<<<<<<<<<<<<<<<<<<< // showing correct data but no callback
+        Serial.println(state);                                          // <<<<<<<<<<<<<<<<<<<<<<<<<<< showing correct data but no callback
         _onButtonPressed(0, state);
       }
 //    }
