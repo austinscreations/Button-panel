@@ -75,6 +75,8 @@ iStart = iEnd + 1;
 iEnd = value.indexOf(',', iStart);
 SoffitW = value.substring(iStart, iEnd).toInt();
 
+    if (SoffitC != 0)
+    {
     Serial.print("LED #: ");
     Serial.println(SoffitC);
 
@@ -90,13 +92,16 @@ SoffitW = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE: ");
     Serial.println(SoffitW); 
 
-    if (SoffitC != 0){
     ledmode[(SoffitC-1)] = 1; // set led to normal color
     neo_update[(SoffitC-1)] = true; // time to update the neopixel
      rednew[(SoffitC-1)] = {SoffitR};
      grnnew[(SoffitC-1)] = {SoffitG}; 
      blunew[(SoffitC-1)] = {SoffitB};
      whinew[(SoffitC-1)] = {SoffitW};
+  }
+  else
+  {
+    Serial.println("LED's are 1-based number - change your value");
   }
 }
 
@@ -121,6 +126,8 @@ iStart = iEnd + 1;
 iEnd = value.indexOf(',', iStart);
 SoffitW = value.substring(iStart, iEnd).toInt();
 
+    if (SoffitC != 0)
+    {
     Serial.print("LED #: ");
     Serial.println(SoffitC);
 
@@ -136,13 +143,17 @@ SoffitW = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE: ");
     Serial.println(SoffitW); 
 
-    if (SoffitC != 0){
+    
     ledmode[(SoffitC-1)] = 2; // set led to fade color
-    neo_update[(SoffitC-1)] = true; // time to update the neopixel
+     neo_update[(SoffitC-1)] = true; // time to update the neopixel
      rednew[(SoffitC-1)] = {SoffitR};
      grnnew[(SoffitC-1)] = {SoffitG}; 
      blunew[(SoffitC-1)] = {SoffitB};
      whinew[(SoffitC-1)] = {SoffitW};
+  }
+  else
+  {
+    Serial.println("LED's are 1-based number - change your value");
   }
 }
 
@@ -170,6 +181,8 @@ iStart = iEnd + 1;
 iEnd = value.indexOf(',', iStart);
 SoffitW = value.substring(iStart, iEnd).toInt();
 
+    if (SoffitC != 0)
+    {
     Serial.print("LED #: ");
     Serial.println(SoffitC);
 
@@ -188,7 +201,6 @@ SoffitW = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE: ");
     Serial.println(SoffitW); 
 
-    if (SoffitC != 0){
     ledmode[(SoffitC-1)] = 3; // set led to ring color
     neo_update[(SoffitC-1)] = true; // time to update the neopixel
      spot[(SoffitC-1)] = {SoffitS};
@@ -196,6 +208,10 @@ SoffitW = value.substring(iStart, iEnd).toInt();
      grnnew[(SoffitC-1)] = {SoffitG}; 
      blunew[(SoffitC-1)] = {SoffitB};
      whinew[(SoffitC-1)] = {SoffitW};
+  }
+  else
+  {
+    Serial.println("LED's are 1-based number - change your value");
   }
 }
 
@@ -232,6 +248,9 @@ iStart = iEnd + 1;
 iEnd = value.indexOf(',', iStart);
 SoffitW1 = value.substring(iStart, iEnd).toInt();
 
+
+    if (SoffitC != 0)
+    {
     Serial.print("LED #: ");
     Serial.println(SoffitC);
 
@@ -259,7 +278,7 @@ SoffitW1 = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE2: ");
     Serial.println(SoffitW1);
 
-    if (SoffitC != 0){
+   
     ledmode[(SoffitC-1)] = 4; // set led to fade color
      rednew[(SoffitC-1)] = {SoffitR};
      grnnew[(SoffitC-1)] = {SoffitG}; 
@@ -269,6 +288,10 @@ SoffitW1 = value.substring(iStart, iEnd).toInt();
      grnnew1[(SoffitC-1)] = {SoffitG1}; 
      blunew1[(SoffitC-1)] = {SoffitB1};
      whinew1[(SoffitC-1)] = {SoffitW1};
+  }
+  else
+  {
+    Serial.println("LED's are 1-based number - change your value");
   }
 }
 
@@ -305,6 +328,9 @@ iStart = iEnd + 1;
 iEnd = value.indexOf(',', iStart);
 SoffitW1 = value.substring(iStart, iEnd).toInt();
 
+
+    if (SoffitC != 0)
+    {
     Serial.print("LED #: ");
     Serial.println(SoffitC);
 
@@ -332,7 +358,6 @@ SoffitW1 = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE2: ");
     Serial.println(SoffitW1);
 
-    if (SoffitC != 0){
     ledmode[(SoffitC-1)] = 5; // set led to fade color
      rednew[(SoffitC-1)] = {SoffitR};
      grnnew[(SoffitC-1)] = {SoffitG}; 
@@ -342,6 +367,10 @@ SoffitW1 = value.substring(iStart, iEnd).toInt();
      grnnew1[(SoffitC-1)] = {SoffitG1}; 
      blunew1[(SoffitC-1)] = {SoffitB1};
      whinew1[(SoffitC-1)] = {SoffitW1};
+  }
+  else
+  {
+    Serial.println("LED's are 1-based number - change your value");
   }
  }
   
