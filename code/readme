@@ -1,1 +1,15 @@
 code for v3 button panel
+
+working code is available for type 1 button panel - has the ring lights
+buttons and LEDs work on 1-based numbering.
+
+MQTT information:
+ *  option - set color    (topic = %hostname%/color; payload = led#, R,G,B,W (0-255))
+ *  option fade to color  (topic = %hostname%/fade;  payload = led#, R,G,B,W (0-255))
+ *  option ring           (topic = %hostname%/ring;  payload = led#, #ON, R,G,B,W (0-255))
+ *  option FWD animation  (topic = %hostname%/fwd;   payload = led#, R,G,B,W,R2,G2,B2,W2,  (0-255))
+ *  option BWD animation  (topic = %hostname%/bwd;   payload = led#, R,G,B,W,R2,G2,B2,W2,  (0-255))
+ *
+ *  button press = button # and state output on topic %hostname%/button
+ *  
+ *  online status can be found with %hostname%/LWT
