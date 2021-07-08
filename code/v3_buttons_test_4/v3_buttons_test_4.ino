@@ -1,17 +1,7 @@
 
 /* 
- *  2021-07-01 v0.2
- *    
- *    works on single button 2021-07-03
- *    
- *    _eventtimer - precursor to multi buttons works 2021-07-07
- *    single button in void setup works 2021-07-07
- *    
- *    press detection working using modified lsc button - ready for multi button formatting 2021-07-07
- *    
- *    single button working for mqtt readout (via serial) - 2021-07-07
- *    multiple buttons working for mqtt readout (via serial) - 2021-07-08
- *    
+ *  2021-07-01 v0.4
+ *
  *    fully working 2021-07-08
  */
 
@@ -20,7 +10,7 @@
 
 //char g_mqtt_message_buffer[64];
 
-mdPushButton button = mdPushButton();
+multiButton button = multiButton();
 
 char * getMqttButtonAction(uint8_t state)
 {
@@ -76,26 +66,27 @@ void buttonPressed(uint8_t button, uint8_t state)
 //  client.publish(out_topic, g_mqtt_message_buffer);
 }
 
-void setup() {
+void setup() 
+{
 
   Serial.begin(SERIAL_BAUD_RATE);
   delay(1000);
-    Serial.println("\nsetup() starting...");
+  Serial.println("\nsetup() starting...");
 
 //  Serial.println(ESP.getResetReason());
 
-for (uint8_t i = 0; i < buttonamount; i++)
+  for (uint8_t i = 0; i < buttonamount; i++)
+  {
+   button.setup(i, buttons[i]);
+  }
+
+  button.onButtonPressed(buttonPressed);
+
+  Serial.println("\nsetup() Complete");
+
+}
+
+void loop() 
 {
-  button.setup(i, buttons[i]);
-}
-
-button.onButtonPressed(buttonPressed);
-
-}
-
-void loop() {
-  
-button.process();
-
-
+ button.process();
 }

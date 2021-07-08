@@ -13,7 +13,6 @@
 #include "Arduino.h"
 #include "buttons.h"
 
-
 #define VERSION 0x0004
 
 // If active = LOW (the default) then the input must be pulled high most of the time
@@ -24,9 +23,9 @@
 //   This can be done with the internal pulldown (set pullup = true which is also the default value) 
 //   or an external pull down resistor say 4.7K + connected to the  GPIO pin and Vcc
 
-mdPushButton::mdPushButton(){}
+multiButton::multiButton(){}
 
-void mdPushButton::setup(uint8_t id, uint8_t pin, uint8_t active, bool useInternalPullResistor) {
+void multiButton::setup(uint8_t id, uint8_t pin, uint8_t active, bool useInternalPullResistor) {
 
   _pin[id] = pin;
   _active[id] = active;
@@ -41,8 +40,10 @@ void mdPushButton::setup(uint8_t id, uint8_t pin, uint8_t active, bool useIntern
         mode = INPUT_PULLDOWN;
       #elif defined(ESP8266)
         if (pin == 16) mode = INPUT_PULLDOWN_16;
-      #endif  
+      #endif 
     }
+    _BUTTON_COUNT = _BUTTON_COUNT + 1;
+//    Serial.println(_BUTTON_COUNT);
   }
 
    pinMode(_pin[id], mode);
@@ -50,13 +51,13 @@ void mdPushButton::setup(uint8_t id, uint8_t pin, uint8_t active, bool useIntern
 }
 
 
-void mdPushButton::onButtonPressed(buttonPressedCallback callback)
+void multiButton::onButtonPressed(buttonPressedCallback callback)
 { 
   _onButtonPressed = callback; 
 }
 
 
-void mdPushButton::process() 
+void multiButton::process() 
 {
 
   // Process each input to see what, if any, events have occured
@@ -65,7 +66,7 @@ void mdPushButton::process()
   // Check if we have a callback to handle the press events
   if (_onButtonPressed) 
   {
-    for (uint8_t i = 0; i < BUTTON_COUNT; i++)
+    for (uint8_t i = 0; i < _BUTTON_COUNT; i++)
     {
       // Only interested in buttons with events to report
       if (state[i] != BUTTON_NO_STATE) {
@@ -77,15 +78,15 @@ void mdPushButton::process()
 }
 
 
-uint8_t * mdPushButton::_update()
+uint8_t * multiButton::_update()
 {
-   static uint8_t state[BUTTON_COUNT] = {};
+   static uint8_t state[BUTTON_COUNT_MAX] = {};
   
   // Work out how long since our last update so we can increment the event times for each button
   uint16_t delta = millis() - _lastUpdateTime;
   _lastUpdateTime = millis();
 
-   for (uint8_t id = 0; id < BUTTON_COUNT; id++)
+   for (uint8_t id = 0; id < _BUTTON_COUNT; id++)
   {
     state[id] = BUTTON_NO_STATE;
   
