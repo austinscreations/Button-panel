@@ -90,13 +90,15 @@ SoffitW = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE: ");
     Serial.println(SoffitW); 
 
-    ledmode[SoffitC] = 1; // set led to normal color
-    neo_update[SoffitC] = true; // time to update the neopixel
-     rednew[SoffitC] = {SoffitR};
-     grnnew[SoffitC] = {SoffitG}; 
-     blunew[SoffitC] = {SoffitB};
-     whinew[SoffitC] = {SoffitW};
+    if (SoffitC != 0){
+    ledmode[(SoffitC-1)] = 1; // set led to normal color
+    neo_update[(SoffitC-1)] = true; // time to update the neopixel
+     rednew[(SoffitC-1)] = {SoffitR};
+     grnnew[(SoffitC-1)] = {SoffitG}; 
+     blunew[(SoffitC-1)] = {SoffitB};
+     whinew[(SoffitC-1)] = {SoffitW};
   }
+}
 
 if (strcmp(topic,in_topic2)==0){ // call to set fade rgb color
 
@@ -134,13 +136,15 @@ SoffitW = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE: ");
     Serial.println(SoffitW); 
 
-    ledmode[SoffitC] = 2; // set led to fade color
-    neo_update[SoffitC] = true; // time to update the neopixel
-     rednew[SoffitC] = {SoffitR};
-     grnnew[SoffitC] = {SoffitG}; 
-     blunew[SoffitC] = {SoffitB};
-     whinew[SoffitC] = {SoffitW};
+    if (SoffitC != 0){
+    ledmode[(SoffitC-1)] = 2; // set led to fade color
+    neo_update[(SoffitC-1)] = true; // time to update the neopixel
+     rednew[(SoffitC-1)] = {SoffitR};
+     grnnew[(SoffitC-1)] = {SoffitG}; 
+     blunew[(SoffitC-1)] = {SoffitB};
+     whinew[(SoffitC-1)] = {SoffitW};
   }
+}
 
 if (strcmp(topic,in_topic3)==0){ // call to set ring
 
@@ -184,14 +188,16 @@ SoffitW = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE: ");
     Serial.println(SoffitW); 
 
-    ledmode[SoffitC] = 3; // set led to ring color
-    neo_update[SoffitC] = true; // time to update the neopixel
-     spot[SoffitC] = {SoffitS};
-     rednew[SoffitC] = {SoffitR};
-     grnnew[SoffitC] = {SoffitG}; 
-     blunew[SoffitC] = {SoffitB};
-     whinew[SoffitC] = {SoffitW};
+    if (SoffitC != 0){
+    ledmode[(SoffitC-1)] = 3; // set led to ring color
+    neo_update[(SoffitC-1)] = true; // time to update the neopixel
+     spot[(SoffitC-1)] = {SoffitS};
+     rednew[(SoffitC-1)] = {SoffitR};
+     grnnew[(SoffitC-1)] = {SoffitG}; 
+     blunew[(SoffitC-1)] = {SoffitB};
+     whinew[(SoffitC-1)] = {SoffitW};
   }
+}
 
 if (strcmp(topic,in_topic4)==0){ // call to set bwd ring animation
 
@@ -253,16 +259,18 @@ SoffitW1 = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE2: ");
     Serial.println(SoffitW1);
 
-    ledmode[SoffitC] = 4; // set led to fade color
-     rednew[SoffitC] = {SoffitR};
-     grnnew[SoffitC] = {SoffitG}; 
-     blunew[SoffitC] = {SoffitB};
-     whinew[SoffitC] = {SoffitW};
-     rednew1[SoffitC] = {SoffitR1};
-     grnnew1[SoffitC] = {SoffitG1}; 
-     blunew1[SoffitC] = {SoffitB1};
-     whinew1[SoffitC] = {SoffitW1};
+    if (SoffitC != 0){
+    ledmode[(SoffitC-1)] = 4; // set led to fade color
+     rednew[(SoffitC-1)] = {SoffitR};
+     grnnew[(SoffitC-1)] = {SoffitG}; 
+     blunew[(SoffitC-1)] = {SoffitB};
+     whinew[(SoffitC-1)] = {SoffitW};
+     rednew1[(SoffitC-1)] = {SoffitR1};
+     grnnew1[(SoffitC-1)] = {SoffitG1}; 
+     blunew1[(SoffitC-1)] = {SoffitB1};
+     whinew1[(SoffitC-1)] = {SoffitW1};
   }
+}
 
   if (strcmp(topic,in_topic5)==0){ // call to set fwd ring animation
 
@@ -324,16 +332,18 @@ SoffitW1 = value.substring(iStart, iEnd).toInt();
     Serial.print("WHITE2: ");
     Serial.println(SoffitW1);
 
-    ledmode[SoffitC] = 5; // set led to fade color
-     rednew[SoffitC] = {SoffitR};
-     grnnew[SoffitC] = {SoffitG}; 
-     blunew[SoffitC] = {SoffitB};
-     whinew[SoffitC] = {SoffitW};
-     rednew1[SoffitC] = {SoffitR1};
-     grnnew1[SoffitC] = {SoffitG1}; 
-     blunew1[SoffitC] = {SoffitB1};
-     whinew1[SoffitC] = {SoffitW1};
+    if (SoffitC != 0){
+    ledmode[(SoffitC-1)] = 5; // set led to fade color
+     rednew[(SoffitC-1)] = {SoffitR};
+     grnnew[(SoffitC-1)] = {SoffitG}; 
+     blunew[(SoffitC-1)] = {SoffitB};
+     whinew[(SoffitC-1)] = {SoffitW};
+     rednew1[(SoffitC-1)] = {SoffitR1};
+     grnnew1[(SoffitC-1)] = {SoffitG1}; 
+     blunew1[(SoffitC-1)] = {SoffitB1};
+     whinew1[(SoffitC-1)] = {SoffitW1};
   }
+ }
   
   
    

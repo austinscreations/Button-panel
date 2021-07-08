@@ -1,6 +1,6 @@
 
 /* 
- *  2021-04-22 v0.1.1
+ *  2021-07-08 v0.2.0
  *  wifi and mqtt conenction working as of 12:38 2021-04-22
  *  neopixels working 18:11 2021-04-30
  *  
@@ -15,7 +15,8 @@
  *  
  *  online status can be found with %hostname%/LWT
  *  
- *  ***(very rare) still has slight issue of double sending button press when releasing button***
+ *  working button code 2021-07-08
+ *  buttons and leds are now 1-based to match LSC 2021-07-08
  */
 
 #include <ESP8266WiFi.h>
@@ -23,10 +24,10 @@
 #include <PubSubClient.h>             // For MQTT
 #include <Adafruit_NeoPixel.h>
 #include "config.h"
-#include "USM_Input.h"                // For input handling (embedded)
+#include "buttons.h"                  // For button click handling (embedded)
 
-
-USM_Input usmInput[4];
+multiButton button = multiButton();
+char g_mqtt_message_buffer[64];
 
 WiFiClient espClient;
 PubSubClient client(espClient);
@@ -54,12 +55,6 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, LED_TYPE + NEO_KHZ800);
   char connectphrase[100]; // publishes to 'outTopic' when connected
 
  
-int buttonstate[(buttonamount+1)] = {0}; // digital read of button state created for each button
-int prevbuttonstate[(buttonamount+1)] = {0}; // previous state of button
-
-unsigned long time1 = 0;
-
-
 // Initialize color variables
 int prevR[buttonamount] = {};
 int prevG[buttonamount] = {};
@@ -111,17 +106,67 @@ int SoffitW1;
 
 unsigned long previousMillis2 = 0;
 unsigned long previousMillis3 = 0;
-unsigned long previousheartbeat = 0;
 
 int connected_update = false;
 
+char * getMqttButtonAction(uint8_t state)
+{
+  // Determine what action we need to publish
+  static char action[7];
+  switch (state)
+  {
+    case BUTTON_HOLD_STATE:
+      sprintf_P(action, PSTR("HOLD"));
+      break;
+    case 1:
+      sprintf_P(action, PSTR("SINGLE"));
+      break;
+    case 2:
+      sprintf_P(action, PSTR("DOUBLE"));
+      break;
+    case 3:
+      sprintf_P(action, PSTR("TRIPLE"));
+      break;
+    case 4:
+      sprintf_P(action, PSTR("QUAD"));
+      break;
+    case 5:
+      sprintf_P(action, PSTR("PENTA"));
+      break;
+    default:
+      sprintf_P(action, PSTR("ERROR"));
+      break;
+  }
+  return action;
+}
 
+void buttonPressed(uint8_t button, uint8_t state)
+{
+ 
+  // Determine the port, switch, and button numbers (1-based)
+  uint8_t raw_button =  button;
+  uint8_t mqtt_button = raw_button + 1;
+
+  if (DEBUG_BUTTONS)
+  {
+    Serial.print(F("Press detected: "));
+    Serial.print(F(" BUTTON: "));
+    Serial.print(mqtt_button);
+    Serial.print(F(" STATE: "));
+    Serial.print(state);
+    Serial.print(F(" ACTION: "));
+    Serial.println(getMqttButtonAction(state));
+  }
+
+  // Publish event to MQTT
+  sprintf_P(g_mqtt_message_buffer, PSTR("{\"BUTTON\":%d, \"ACTION\":\"%s\"}"), mqtt_button, getMqttButtonAction(state));
+  client.publish(out_topic, g_mqtt_message_buffer);
+}
 
 void setup() {
 
   Serial.begin(SERIAL_BAUD_RATE);
   delay(1000);
-  Serial.println("");
 //  Serial.println(ESP.getResetReason());
  
   strip.begin();           // INITIALIZE NeoPixel strip object (REQUIRED)
@@ -133,8 +178,12 @@ void setup() {
   client.setServer(mqtt_broker, mqtt_port);
   client.setCallback(callback);
 
-for (int p = 0; p < buttonamount; p ++){pinMode(buttons[p], INPUT_PULLUP);} // set all buttons to input pullup
+ for (uint8_t i = 0; i < buttonamount; i++)
+  {
+   button.setup(i, buttons[i]);
+  }
 
+  button.onButtonPressed(buttonPressed);
 }
 
 void loop() {
@@ -147,23 +196,7 @@ void loop() {
       success();
     }
 
-// check if a button was pressed, and send button number through mqtt
-for (int p = 0; p < buttonamount; p ++)
-  {
-    buttonstate[p] = digitalRead(buttons[p]); // read current state of all buttons
-    usmInput[p].process(p, buttonstate[p]); 
-  }
-
-//// check if a button was pressed, and send button number through mqtt
-//  for (int p = 0; p < buttonamount; p ++){
-//    buttonstate[p] = digitalRead(buttons[p]); // read current state of all buttons
-//    
-//    if (buttonstate[p] == LOW && prevbuttonstate[p] == HIGH && millis() - time1 > debounce) { // confirm button was release from last press and if repressed enough time has passed for debounce
-//       client.publish(out_topic,String(p).c_str(), false);
-//      time1 = millis();
-//    }
-//  prevbuttonstate[p] = buttonstate[p]; // save last state of buttons
-//  }
+    button.process();
 
 
   /*
@@ -206,164 +239,4 @@ for (int p = 0; p < buttonamount; p ++)
     fwd_prev = fwd;
     bwd_prev = bwd;
 
-
-  
-  
-
-  
 }
-
-void getInputType(char inputType[], uint8_t type)
-{
-  // Determine what type of input we have
-  sprintf_P(inputType, PSTR("ERROR"));
-  switch (type)
-  {
-    case BUTTON:
-      sprintf_P(inputType, PSTR("BUTTON"));
-      break;
-    case CONTACT:
-      sprintf_P(inputType, PSTR("CONTACT"));
-      break;
-    case ROTARY:
-      sprintf_P(inputType, PSTR("ROTARY"));
-      break;
-    case SWITCH:
-      sprintf_P(inputType, PSTR("SWITCH"));
-      break;
-    case TOGGLE:
-      sprintf_P(inputType, PSTR("TOGGLE"));
-      break;
-  }
-}
-
-void getEventType(char eventType[], uint8_t type, uint8_t state)
-{
-  // Determine what event we need to publish
-  sprintf_P(eventType, PSTR("ERROR"));
-  switch (type)
-  {
-    case BUTTON:
-      switch (state)
-      {
-        case USM_HOLD_EVENT:
-          sprintf_P(eventType, PSTR("HOLD"));
-          break;
-        case 1:
-          sprintf_P(eventType, PSTR("SINGLE"));
-          break;
-        case 2:
-          sprintf_P(eventType, PSTR("DOUBLE"));
-          break;
-        case 3:
-          sprintf_P(eventType, PSTR("TRIPLE"));
-          break;
-        case 4:
-          sprintf_P(eventType, PSTR("QUAD"));
-          break;
-        case 5:
-          sprintf_P(eventType, PSTR("PENTA"));
-          break;
-      }
-      break;
-    case CONTACT:
-      switch (state)
-      {
-        case USM_LOW:
-          sprintf_P(eventType, PSTR("CLOSED"));
-          break;
-        case USM_HIGH:
-          sprintf_P(eventType, PSTR("OPEN"));
-          break;
-      }
-      break;
-    case ROTARY:
-      switch (state)
-      {
-        case USM_LOW:
-          sprintf_P(eventType, PSTR("UP"));
-          break;
-        case USM_HIGH:
-          sprintf_P(eventType, PSTR("DOWN"));
-          break;
-      }
-      break;
-    case SWITCH:
-      switch (state)
-      {
-        case USM_LOW:
-          sprintf_P(eventType, PSTR("ON"));
-          break;
-        case USM_HIGH:
-          sprintf_P(eventType, PSTR("OFF"));
-          break;
-      }
-      break;
-    case TOGGLE:
-      sprintf_P(eventType, PSTR("TOGGLE"));
-      break;
-  }
-}
-
-/**
-  Button handlers
-*/
-void usmEvent(uint8_t id, uint8_t input, uint8_t type, uint8_t state)
-{
-  // Determine the port, channel, and index (all 1-based)
-  uint8_t raw_index = input;
-  uint8_t index = raw_index + 1;
-  
-  char inputType[8];
-  getInputType(inputType, type);
-  char eventType[7];
-  getEventType(eventType, type, state);
-
-  if (DEBUG_BUTTONS)
-  {
-    Serial.print(F("[EVNT]"));
-    Serial.print(F(" INDX:"));
-    Serial.print(index);
-    Serial.print(F(" TYPE:"));
-    Serial.print(inputType);
-    Serial.print(F(" EVNT:"));
-    Serial.println(eventType);
-  }
-
-  char message[66];
-
-  if (client.connected())
-  {
-    // Build JSON payload for this event
-    sprintf_P(message, PSTR("{\"INDX\":%d,\"TYPE\":\"%s\",\"EVNT\":\"%s\"}"), index, inputType, eventType);
-  
-    // Publish event to MQTT
-    client.publish(out_topic, message);
-  }
-  else
-  {
-    Serial.println("FAILOVER!!!");    
-  }
-}
-
-//void buttonPressed(uint8_t id, uint8_t button, uint8_t state)
-//{
-//  // Determine the port, switch, and button numbers (1-based)
-//  uint8_t raw_button =  button;
-//  uint8_t mqtt_button = raw_button + 1;
-//
-//  if (DEBUG_BUTTONS)
-//  {
-//    Serial.print(F("Press detected: "));
-//    Serial.print(F(" BUTTON: "));
-//    Serial.print(mqtt_button);
-//    Serial.print(F(" STATE: "));
-//    Serial.print(state);
-//    Serial.print(F(" ACTION: "));
-//    Serial.println(getMqttButtonAction(state));
-//  }
-//
-//  // Publish event to MQTT
-//  sprintf_P(g_mqtt_message_buffer, PSTR("{\"BUTTON\":%d, \"ACTION\":\"%s\"}"), mqtt_button, getMqttButtonAction(state));
-//  client.publish(out_topic, g_mqtt_message_buffer);
-//}
