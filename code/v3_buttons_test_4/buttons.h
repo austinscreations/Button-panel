@@ -36,14 +36,6 @@
 
 #define BUTTON_COUNT             4
 
-// Callback type of handler such as buttonClicked(int clicks)
-//typedef void (*callback_int)(int);
-//typedef void (*callback_int)(uint8_t, uint8_t);
-
-// Callback type of handler such as buttonClicked(uint8_t buttonid, int clicks);
-// the button id is the hopefully unique GPIO pin to which it is connected.
-//typedef void (*callback_int_int)(uint8_t, int);
-
 typedef void (*buttonPressedCallback)(uint8_t, uint8_t);
 
 enum buttonState_t { AWAIT_PRESS, DEBOUNCE_PRESS, AWAIT_RELEASE, DEBOUNCE_RELEASE, AWAIT_MULTI_PRESS };

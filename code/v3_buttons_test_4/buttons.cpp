@@ -14,7 +14,7 @@
 #include "buttons.h"
 
 
-#define VERSION 0x0002
+#define VERSION 0x0004
 
 // If active = LOW (the default) then the input must be pulled high most of the time
 //   This can be done with the internal pullup (set pullup = true which is also the default value) 
@@ -49,7 +49,6 @@ void mdPushButton::setup(uint8_t id, uint8_t pin, uint8_t active, bool useIntern
   _buttonState[id].data.state = AWAIT_PRESS;
 }
 
-//void mdPushButton::OnButtonClicked( callback_int cb ){_OnClick1 = cb;}
 
 void mdPushButton::onButtonPressed(buttonPressedCallback callback)
 { 
@@ -59,8 +58,7 @@ void mdPushButton::onButtonPressed(buttonPressedCallback callback)
 
 void mdPushButton::process() 
 {
-//  for (uint8_t i = 0; i < BUTTON_COUNT; i++)
-//    {
+
   // Process each input to see what, if any, events have occured
   uint8_t * state = _update();
 
@@ -127,9 +125,7 @@ uint8_t * mdPushButton::_update()
         {
           _buttonState[id].data.clicks = BUTTON_HOLD_STATE ;
           _eventTime[id] = 0;
-//          Serial.println("i was held");
           state[id] = BUTTON_HOLD_STATE;
-//         return BUTTON_HOLD_STATE;
         }
       }
     }
@@ -141,15 +137,15 @@ uint8_t * mdPushButton::_update()
         if (_buttonState[id].data.clicks == BUTTON_HOLD_STATE ) 
         {
           _buttonState[id].data.state = AWAIT_PRESS;
-//          return 0;
            state[id] = 0;
         }
+        else
+        {
           _buttonState[id].data.clicks = min(BUTTON_MAX_CLICKS, _buttonState[id].data.clicks + 1);
-//          _buttonState.data.clicks += 1;
           _buttonState[id].data.state = AWAIT_MULTI_PRESS;
-//          Serial.println("i had multipress");
           _eventTime[id] = 0; 
         }
+       }
       }
     
     // AWAIT_MULTI_PRESS
@@ -163,12 +159,10 @@ uint8_t * mdPushButton::_update()
       else if (_eventTime[id] > MULTI_CLICK_TIME) 
       {
         _buttonState[id].data.state = AWAIT_PRESS;
-//        return _buttonState[id].data.clicks;
-          state[id] = _buttonState[id].data.clicks;
+        state[id] = _buttonState[id].data.clicks;
       }
     }
   }
   
     return state;
-//  return 0;
 }

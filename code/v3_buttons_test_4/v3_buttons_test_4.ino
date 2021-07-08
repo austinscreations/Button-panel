@@ -12,8 +12,7 @@
  *    single button working for mqtt readout (via serial) - 2021-07-07
  *    multiple buttons working for mqtt readout (via serial) - 2021-07-08
  *    
- *    TO DO
- *      - reports PENTA after HOLD
+ *    fully working 2021-07-08
  */
 
 #include "config.h"
@@ -85,8 +84,10 @@ void setup() {
 
 //  Serial.println(ESP.getResetReason());
 
-button.setup(0, buttons[0]);
-button.setup(1, buttons[1]);
+for (uint8_t i = 0; i < buttonamount; i++)
+{
+  button.setup(i, buttons[i]);
+}
 
 button.onButtonPressed(buttonPressed);
 
