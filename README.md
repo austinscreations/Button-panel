@@ -9,6 +9,10 @@ the second version uses one center led for a cenetr lighting in the button - acy
 
 Once I have a chance I plan to produce the pcb and order parts on ebay and create the 3d print assemblies to see what teh cost would be and if it works well.
 
+2021-07-08
+Working full code for type-1 assembly has been added. Now has working button deboucing and outputs teh same json type string as the superhouse.tv LSC project.
+New PCB's has been produced and is working correctly with new code - files might need to be updated here...
+
 2021-04-28
 Added the latest version. will order parts soon to test the design.
 Added a new 3d model for an AUS plate, design is incomplete and will get my hands on a real one to adjust the model as needed.
