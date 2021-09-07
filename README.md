@@ -9,6 +9,10 @@ the second version uses one center led for a cenetr lighting in the button - acy
 
 Once I have a chance I plan to produce the pcb and order parts on ebay and create the 3d print assemblies to see what teh cost would be and if it works well.
 
+2021-09-07
+added a node-red demo taht hsows all the functions nicely.
+added to and bottom photos of pcb along with pinout for RX / TX
+
 2021-07-08
 Working full code for type-1 assembly has been added. Now has working button deboucing and outputs teh same json type string as the superhouse.tv LSC project.
 New PCB's has been produced and is working correctly with new code - files might need to be updated here...
