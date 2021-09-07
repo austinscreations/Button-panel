@@ -13,3 +13,6 @@ MQTT information:
  *  button press = button # and state output on topic %hostname%/button
  *  
  *  online status can be found with %hostname%/LWT
+
+
+node red demo will require node-red-contrib-countdown : countdown (there are two, i used the first one, non #2)
